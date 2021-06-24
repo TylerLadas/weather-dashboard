@@ -23,29 +23,42 @@ const apiKey = "7a0e3b7a2332de049abc9ae5197bfda0"
 let cities = [];
 
 // fetch current temp info
-function fetchCurrent(city){
+function fetchCurrent(city) {
 
 const cityValue = search.value;
 
-fetch('https://api.openweathermap.org/data/2.5/weather?q=' + cityValue + '&appid=' + apiKey)
+fetch('https://api.openweathermap.org/data/2.5/weather?units=metric&q=' + cityValue + '&appid=' + apiKey)
 
 .then (function(response) {
     return response.json();
 })
 .then (function(response) {
     cityName.textContent = response.name + " " + moment().format('(DD/MM/YYYY)');
-    temp.textContent = 'Temp: ' + response.main.temp;
-    wind.textContent = 'Wind: ' + response.wind.speed;
-    humidity.textContent = 'Humidity: ' + response.main.humidity;
+    temp.textContent = 'Temp: ' + response.main.temp +'℃';
+    var windSpeed = response.wind.speed * 3.6;
+    var adjustedSpeed = windSpeed.toFixed(2);
+    wind.textContent = 'Wind: ' + adjustedSpeed + ' km/hr';
+    humidity.textContent = 'Humidity: ' + response.main.humidity + '%';
 
-});
+    // fetch uv info
+    return fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + response.coord.lat + '&lon=' + response.coord.lon + '&units=metric&appid=' + apiKey)
 
-}
+    .then (function(response) {
+        return response.json();
+    })
+
+    .then (function(response) {
+        uv.textContent = response.current.uvi;
+    })
+})
+};
+
+
 
 // event listener
 searchForm.addEventListener("submit", function(event) {
     event.preventDefault();
     fetchCurrent();
     currentContainer.style.display = "block";
-    
+    fiveDayContainer.style.display = "block";
 });

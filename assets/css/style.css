@@ -45,4 +45,16 @@ li {
 #current {
     display: none;
     border: 2px solid black;
+    margin-bottom: 10px;
+}
+
+#current span {
+    background-color: green;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#five-day {
+    display: none;
 }
