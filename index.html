@@ -9,7 +9,40 @@
     <title>Document</title>
 </head>
 <body>
-    
+
+    <h1>Weather Dashboard</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <div class="container">
+                    <div class="row">
+                        <div id="search-container" class="col-12">
+                            <h5>Search for a City:</h5>
+                            <input type="text" id="searchTerm" placeholder="City" />
+                            <button id="submit-button" type="submit">Search</button>
+                        </div>
+                        <div id="saved-container" class="col-12">saved</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-9">
+                <div class="container">
+                    <div class="row">
+                        <div id="current-weather" class="col-12">current</div>
+                        <div class="container">
+                            <div id="five-day" class="row justify-content-between">
+                                <div id="d1" class="col-2">d1</div>
+                                <div id="d2" class="col-2">d2</div>
+                                <div id="d3" class="col-2">d3</div>
+                                <div id="d4" class="col-2">d4</div>
+                                <div id="d5" class="col-2">d5</div>
+                            </div>
+                        </div>        
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="./assets/js/weather.js"></script>
