@@ -16,11 +16,11 @@ const humidity = document.querySelector("#current-humidity");
 const uv = document.querySelector("#current-uv");
 
 // 5 day forecast variables
-const d1Date = document.querySelector("#d1-date");
-const d2Date = document.querySelector("#d2-date");
-const d3Date = document.querySelector("#d3-date");
-const d4Date = document.querySelector("#d4-date");
-const d5Date = document.querySelector("#d5-date");
+// const forecastDate = document.querySelector("#d1-date");
+// const forecastTemp = document.querySelector("#d2-date");
+// const forecastWind = document.querySelector("#d3-date");
+// const forecastHumidity = document.querySelector("#d4-date");
+// const forecastImage = document.querySelector("#d5-date");
 
 // api var
 const apiKey = "7a0e3b7a2332de049abc9ae5197bfda0"
@@ -68,11 +68,21 @@ fetch('https://api.openweathermap.org/data/2.5/weather?units=metric&q=' + cityVa
         } else {
             uv.classList = "uv-safe"
         }
-    })
-
-    // 5 day forecast
-    .then (function(response) {
-
+    
+        //for loop to iterate through days start at i=1 as i=0 would reference current day
+        for (i = 1; i<6; i++) {
+            let forecastDate = document.querySelector("#date" + [i]);
+            forecastDate.textContent = new Date(response.daily[i].dt * 1000).toLocaleDateString("en-US"); ;
+            let forecastTemp = document.querySelector("#temp" + [i]);
+            forecastTemp.textContent =  "Temp: " + response.daily[i].temp.day + "℃";
+            let forecastImg = document.querySelector("#img" + [i]);
+            let forecastIcon = response.daily[i].weather[0].icon;
+            forecastImg.setAttribute("src", "https://openweathermap.org/img/wn/" + forecastIcon + "@2x.png");  
+            let forecastWind = document.querySelector("#wind" + [i]);
+            forecastWind.textContent = "Wind: " + response.daily[i].wind_speed + "km/hr";
+            let forecastHumidity = document.querySelector("#humidity" + [i]);
+            forecastHumidity.textContent = "Humidity: " + response.daily[i].humidity + "%";
+        }
     })
 })
 };
