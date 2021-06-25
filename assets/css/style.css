@@ -48,8 +48,22 @@ li {
     margin-bottom: 10px;
 }
 
-#current span {
+.uv-safe{
     background-color: green;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.uv-warning{
+    background-color: yellow;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.uv-danger{
+    background-color: red;
     color: white;
     border-radius: 5px;
     padding: 5px;
@@ -57,4 +71,10 @@ li {
 
 #five-day {
     display: none;
+}
+
+#d1, #d2, #d3, #d4, #d5 {
+    color: white;
+    background-color: rgb(42, 60, 141);
+    padding-top: 10px;
 }
