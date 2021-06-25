@@ -15,13 +15,6 @@ const wind = document.querySelector("#current-wind");
 const humidity = document.querySelector("#current-humidity");
 const uv = document.querySelector("#current-uv");
 
-// 5 day forecast variables
-// const forecastDate = document.querySelector("#d1-date");
-// const forecastTemp = document.querySelector("#d2-date");
-// const forecastWind = document.querySelector("#d3-date");
-// const forecastHumidity = document.querySelector("#d4-date");
-// const forecastImage = document.querySelector("#d5-date");
-
 // api var
 const apiKey = "7a0e3b7a2332de049abc9ae5197bfda0"
 
@@ -87,7 +80,25 @@ fetch('https://api.openweathermap.org/data/2.5/weather?units=metric&q=' + cityVa
 })
 };
 
-// local storage set get
+// local storage set
+function setStorage() {
+    cities.push(search.value); 
+    localStorage.setItem("cities", JSON.stringify(cities))
+;}
+
+// local storage get and render in saved container
+function getStorage() {
+    let getData = localStorage.getItem("cities");
+    let savedCities = JSON.parse(getData);
+    for (i = 0; i < savedCities.length; i++) {
+        let savedBtn = document.createElement("button");
+        savedBtn.textContent = savedCities[i];
+        savedBtn.className = "savedBtn";
+        savedBtn.setAttribute("type", "submit")
+        savedBtn.setAttribute("value", savedCities[i]);
+        savedContainer.appendChild(savedBtn);
+    }
+};
 
 // event listener
 searchForm.addEventListener("submit", function(event) {
@@ -95,4 +106,9 @@ searchForm.addEventListener("submit", function(event) {
     fetchCurrent();
     currentContainer.style.display = "block";
     fiveDayContainer.style.display = "flex";
+    setStorage();
+    getStorage();
 });
+
+// get storage and render saved buttons on page load
+getStorage();

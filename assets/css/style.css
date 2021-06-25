@@ -27,8 +27,8 @@ h1 {
     text-align: center;
     background-color: lightgray;
     border-radius: 5px;
-    list-style: none;
     margin: 10px 0;
+    display: block;
 }
 
 #search-container {
