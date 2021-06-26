@@ -5,7 +5,7 @@ const submitBtn = document.querySelector("#submit");
 const savedContainer = document.querySelector("#saved");
 const currentContainer = document.querySelector("#current");
 const fiveDayContainer = document.querySelector("#five-day");
-
+let cityValue;
 
 // current variables
 const cityName = document.querySelector("#current-city-name");
@@ -34,9 +34,9 @@ if (localStorage.getItem('cities')) {
 // fetch current city info
 function fetchCurrent(city) {
 
-let cityValue = search.value;
+// let cityValue = search.value;
 
-fetch('https://api.openweathermap.org/data/2.5/weather?units=metric&q=' + cityValue + '&appid=' + apiKey)
+fetch('https://api.openweathermap.org/data/2.5/weather?units=metric&q=' + city + '&appid=' + apiKey)
 
 .then (function(response) {
     return response.json();
@@ -53,14 +53,14 @@ fetch('https://api.openweathermap.org/data/2.5/weather?units=metric&q=' + cityVa
     var adjustedSpeed = windSpeed.toFixed(2);
     wind.textContent = 'Wind: ' + adjustedSpeed + ' km/hr';
     humidity.textContent = 'Humidity: ' + response.main.humidity + '%';
-
+    
     // fetch uv and 5day info
     return fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + response.coord.lat + '&lon=' + response.coord.lon + '&units=metric&appid=' + apiKey)
 
     .then (function(response) {
         return response.json();
     })
-    
+
     // uv classification
     .then (function(response) {
         uv.textContent = response.current.uvi;
@@ -104,8 +104,7 @@ let savedBtn = document.createElement("button");
 savedBtn.textContent = text
 savedBtn.className = "savedBtn";
 savedBtn.setAttribute("type", "submit")
-//savedBtn.setAttribute("value", savedCities[i]);
-// savedBtn.setAttribute("id", savedCities[i]);
+savedBtn.setAttribute("value", text);
 savedContainer.appendChild(savedBtn);
 };    
 
@@ -117,7 +116,8 @@ savedCities.forEach(function(item) {
 // event listener
 searchForm.addEventListener("submit", function(event) {
     event.preventDefault();
-    fetchCurrent();
+    cityValue = search.value;
+    fetchCurrent(cityValue);
     currentContainer.style.display = "block";
     fiveDayContainer.style.display = "flex";
     setStorage();
@@ -126,9 +126,10 @@ searchForm.addEventListener("submit", function(event) {
     search.value = "";
 });
 
-
-saved.addEventListener("click", function(event){
+$(".savedBtn").click(function(event) {
     event.preventDefault;
-    cityValue = this.value
-    fetchCurrent(event);
-}) 
+    currentContainer.style.display = "block";
+    fiveDayContainer.style.display = "flex";
+    cityValue = $(this).val();
+    fetchCurrent(cityValue) 
+});
