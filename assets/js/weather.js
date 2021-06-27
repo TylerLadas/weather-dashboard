@@ -98,6 +98,14 @@ function setStorage() {
     localStorage.setItem("cities", JSON.stringify(citiesArray))
 ;}
 
+const handler = function(event) {
+    event.preventDefault;
+    currentContainer.style.display = "block";
+    fiveDayContainer.style.display = "flex";
+    cityValue = $(this).val();
+    fetchCurrent(cityValue); 
+}
+
 // create saved buttons
 function createButton(text) {
 let savedBtn = document.createElement("button");
@@ -105,6 +113,7 @@ savedBtn.textContent = text
 savedBtn.className = "savedBtn";
 savedBtn.setAttribute("type", "submit")
 savedBtn.setAttribute("value", text);
+savedBtn.addEventListener("click", handler)
 savedContainer.appendChild(savedBtn);
 };    
 
@@ -117,6 +126,10 @@ savedCities.forEach(function(item) {
 searchForm.addEventListener("submit", function(event) {
     event.preventDefault();
     cityValue = search.value;
+    if (search.value === "") {
+        alert("Please enter a city name!")
+        return
+    }
     fetchCurrent(cityValue);
     currentContainer.style.display = "block";
     fiveDayContainer.style.display = "flex";
@@ -126,10 +139,5 @@ searchForm.addEventListener("submit", function(event) {
     search.value = "";
 });
 
-$(".savedBtn").click(function(event) {
-    event.preventDefault;
-    currentContainer.style.display = "block";
-    fiveDayContainer.style.display = "flex";
-    cityValue = $(this).val();
-    fetchCurrent(cityValue) 
-});
+$(".savedBtn").click(handler);
+
