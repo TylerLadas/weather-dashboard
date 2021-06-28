@@ -1,4 +1,5 @@
 # weather-dashboard
+![Screen Shot 2021-06-28 at 10 48 53 AM](https://user-images.githubusercontent.com/78171259/123657267-a4b62e80-d7fe-11eb-9c98-09abc2f882fe.png)
 
 ## Purpose
 To build a weather dashboard that will run in the browser and feature dynamically updated HTML and CSS.
